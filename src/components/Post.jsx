@@ -7,6 +7,6 @@ function Post(props) {
         <p className={classes.text}>{props.body}</p>
       </li>
     );
-  }
+}
   
   export default Post;

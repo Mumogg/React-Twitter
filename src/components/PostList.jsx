@@ -6,11 +6,11 @@ import Modal from './Modal';
 import classes from './PostList.module.css';
 
 
-function PostList({ isPosting, onStopPosting }) {
-  const [post, setPost] = useState([]);
+function PostsList({ isPosting, onStopPosting }) {
+  const [posts, setPosts] = useState([]);
 
-function addPostHandler(postData){
-  setPost((existingPost)=>[postData, ...existingPost])
+  function addPostHandler(postData) {
+    setPosts((existingPosts) => [postData, ...existingPosts]);
   }
 
   return (
@@ -27,8 +27,14 @@ function addPostHandler(postData){
           ))}
         </ul>
       )}
+      {posts.length === 0 && (
+        <div style={{ textAlign: 'center', color: 'white' }}>
+          <h2>There are no posts yet.</h2>
+          <p>Start adding some!</p>
+        </div>
+      )}
     </>
-      );
+  );
 }
 
-export default PostList;
+export default PostsList;

@@ -6,39 +6,28 @@ import Modal from './Modal';
 import classes from './PostList.module.css';
 
 
-function PostList({isPosting, onStopPosting}){
-    const [modalIsVisible, setModalIsVisible] = useState(true);
-    const [enteredBody, setEnteredBody] = useState('');
-    const [enteredAuthor, setEnteredAuthor] = useState('');
-    
-    
+function PostList({ isPosting, onStopPosting }) {
+  const [post, setPost] = useState([]);
 
-    function bodyChangeHandler(event) {
-        setEnteredBody(event.target.value);
-      }
-    
-    function authorChangeHandler(event) {
-        setEnteredAuthor(event.target.value);
-      }
-    
-      return (
-        <>
-          {isPosting ? 
-          <Modal onClose={onStopPosting}>
-            <NewPost
-              onBodyChange={bodyChangeHandler}
-              onAuthorChange={authorChangeHandler}
-              onCancel={onStopPosting}
-            />
-          </Modal> 
-          : null} 
+function addPostHandler(postData){
+  setPost((existingPost)=>[postData, ...existingPost])
+  }
 
-          <ul className={classes.posts}>
-            <Post author={enteredAuthor} body={enteredBody} />
-            <Post author="Iori" body="Viva la roma" />
-            <Post author="Desgraciada mayor" body="Viva el alcohol" />
-          </ul>
-        </>
+  return (
+    <>
+      {isPosting && (
+        <Modal onClose={onStopPosting}>
+          <NewPost onCancel={onStopPosting} onAddPost={addPostHandler} />
+        </Modal>
+      )}
+      {posts.length > 0 && (
+        <ul className={classes.posts}>
+          {posts.map((post) => (
+            <Post key={post.body} author={post.author} body={post.body} />
+          ))}
+        </ul>
+      )}
+    </>
       );
 }
 

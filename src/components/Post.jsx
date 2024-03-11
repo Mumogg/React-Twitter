@@ -8,5 +8,5 @@ function Post({ author, body }) {
     </li>
   );
 }
-  
-  export default Post;
+
+export default Post;

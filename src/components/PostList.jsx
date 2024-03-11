@@ -1,36 +1,45 @@
+import { useState } from 'react';
+
 import Post from './Post';
-import classes from './PostList.module.css';
 import NewPost from './NewPost';
-import {useState} from 'react'
 import Modal from './Modal';
+import classes from './PostList.module.css';
 
 
 function PostList(){
-    const[enteredBody, setEnteredBody] = useState('')
-    const[enteredAuthor, setEnteredAuthor] = useState('')
+    const [modalIsVisible, setModalIsVisible] = useState(true);
+    const [enteredBody, setEnteredBody] = useState('');
+    const [enteredAuthor, setEnteredAuthor] = useState('');
     
-    function bodyChangeHandler(event){
-        setEnteredBody(event.target.value)
+    function hideModalHandler(){
+        setModalIsVisible(false);
     }
 
-    function authorChangeHandler(event){
-        setEnteredAuthor(event.target.value)
-    }
+    function bodyChangeHandler(event) {
+        setEnteredBody(event.target.value);
+      }
     
-    return (
-    <>
-        <Modal>
-            <NewPost 
-            onBodychange={bodyChangeHandler} 
-            onAuthorChange={authorChangeHandler} 
-        />
-        </Modal>
-        <ul className={classes.posts}>
-            <Post author={enteredAuthor} body={enteredBody}/>
-            <Post author="Samuel" body="viva la roma"/>
-        </ul>
-    </>
-);
+    function authorChangeHandler(event) {
+        setEnteredAuthor(event.target.value);
+      }
+    
+      return (
+        <>
+          {modalIsVisible ? 
+          <Modal onClose={hideModalHandler}>
+            <NewPost
+              onBodyChange={bodyChangeHandler}
+              onAuthorChange={authorChangeHandler}
+            />
+          </Modal> 
+          : null} 
+
+          <ul className={classes.posts}>
+            <Post author={enteredAuthor} body={enteredBody} />
+            <Post author="Iori" body="Viva la roma" />
+          </ul>
+        </>
+      );
 }
 
 export default PostList;

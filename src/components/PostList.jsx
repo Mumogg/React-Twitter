@@ -28,6 +28,7 @@ function PostList({isPosting, onStopPosting}){
             <NewPost
               onBodyChange={bodyChangeHandler}
               onAuthorChange={authorChangeHandler}
+              onCancel={onStopPosting}
             />
           </Modal> 
           : null} 
@@ -35,6 +36,7 @@ function PostList({isPosting, onStopPosting}){
           <ul className={classes.posts}>
             <Post author={enteredAuthor} body={enteredBody} />
             <Post author="Iori" body="Viva la roma" />
+            <Post author="Desgraciada mayor" body="Viva el alcohol" />
           </ul>
         </>
       );
